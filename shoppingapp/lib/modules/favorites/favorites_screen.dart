@@ -23,14 +23,14 @@ class FavoritesScreen extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) => defaultItem(
-                    ShopCubit.get(context).favoritesModel!.data!.data![index],
+                    ShopCubit.get(context).favoritesModel.data!.data![index],
                     context),
                 separatorBuilder: (contxt, index) => Divider(
                       height: 20.0,
                       thickness: 15.0,
                     ),
                 itemCount:
-                    ShopCubit.get(context).favoritesModel!.data!.data!.length),
+                    ShopCubit.get(context).favoritesModel.data!.data!.length),
             fallbackBuilder: (context) => Center(
                   child: CircularProgressIndicator(),
                 ));
