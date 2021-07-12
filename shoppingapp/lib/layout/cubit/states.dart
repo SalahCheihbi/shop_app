@@ -19,10 +19,12 @@ class ShopErrorCategoriesDataState extends ShopStates {}
 
 class ShopChangeFavoritesState extends ShopStates {}
 
-class ShopSucessChangeFavoriteDataState extends ShopStates {
+class ShopSucessChangeFavoriteState extends ShopStates {
   final ChangeFavoriteModel model;
-  ShopSucessChangeFavoriteDataState(this.model);
+  ShopSucessChangeFavoriteState(this.model);
 }
+
+class ShopErrorChangeFavoriteDataState extends ShopStates {}
 
 class ShopLoadingGetFavoriteDataState extends ShopStates {}
 

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +17,7 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
-        if (state is ShopSucessChangeFavoriteDataState) {
+        if (state is ShopSucessChangeFavoriteState) {
           if (!state.model.status!) {
             Fluttertoast.showToast(
                 msg: state.model.message!,
@@ -76,32 +74,61 @@ class ProductsScreen extends StatelessWidget {
             SizedBox(
               height: 10.0,
             ),
-            Container(
-              height: 100.0,
-              child: ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) =>
-                      buildCategoryItem(categoriesModel!.data!.data[index]),
-                  separatorBuilder: (context, index) => SizedBox(width: 10.0),
-                  itemCount: categoriesModel!.data!.data.length),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              color: Colors.grey[300],
-              child: GridView.count(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 1.0,
-                  crossAxisSpacing: 1.0,
-                  childAspectRatio: 1 / 1.58,
-                  children: List.generate(
-                      model.data!.products.length,
-                      (index) => buildGridproducs(
-                          model.data!.products[index], context))),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Categories',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 100.0,
+                  child: ListView.separated(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) =>
+                          buildCategoryItem(categoriesModel!.data!.data[index]),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(width: 10.0),
+                      itemCount: categoriesModel!.data!.data.length),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'New Products',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  color: Colors.grey[300],
+                  child: GridView.count(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 1.0,
+                      crossAxisSpacing: 1.0,
+                      childAspectRatio: 1 / 1.58,
+                      children: List.generate(
+                          model.data!.products.length,
+                          (index) => buildGridproducs(
+                              model.data!.products[index], context))),
+                ),
+              ],
             )
           ],
         ),
@@ -191,7 +218,9 @@ class ProductsScreen extends StatelessWidget {
                   Spacer(),
                   IconButton(
                       onPressed: () {
-                        ShopCubit.get(context).changeFavorites(model.id);
+                        ShopCubit.get(context).changeFavorites(
+                          productId: model.id,
+                        );
                         print(model.id);
                       },
                       icon: CircleAvatar(

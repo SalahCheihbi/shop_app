@@ -87,7 +87,7 @@ class SettingsScreen extends StatelessWidget {
                                 text: 'UPDATE',
                               ),
                               SizedBox(
-                                height: 15.0,
+                                height: 10.0,
                               ),
                               defaultButton(
                                 function: () {

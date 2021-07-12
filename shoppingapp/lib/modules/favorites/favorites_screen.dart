@@ -26,8 +26,8 @@ class FavoritesScreen extends StatelessWidget {
                     ShopCubit.get(context).favoritesModel.data!.data![index],
                     context),
                 separatorBuilder: (contxt, index) => Divider(
-                      height: 20.0,
-                      thickness: 15.0,
+                      height: 10.0,
+                      thickness: 2.0,
                     ),
                 itemCount:
                     ShopCubit.get(context).favoritesModel.data!.data!.length),
@@ -52,17 +52,23 @@ Widget defaultItem(FavoritesData model, context) => Padding(
                     width: 120,
                     height: 120,
                     image: NetworkImage(model.product!.image)),
-                Container(
-                  color: Colors.black.withOpacity(.8),
-                  width: 100,
-                  child: Text(
-                    'TEST',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
+                if (model.product!.discount != 0)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 50),
+                    child: Container(
+                      color: Colors.red,
+                      width: 60,
+                      child: Text(
+                        'DISCOUNT',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
             SizedBox(
@@ -77,26 +83,41 @@ Widget defaultItem(FavoritesData model, context) => Padding(
                   Row(
                     children: [
                       Text(
-                        'SSS',
+                        '${model.product!.price} DH',
                         style: TextStyle(
                             color: defaultColor,
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        'data',
-                        style: TextStyle(
-                            color: defaultColor,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold),
+                      SizedBox(
+                        width: 5.0,
                       ),
+                      if (model.product!.discount != 0)
+                        Text(
+                          ' ${model.product!.oldPrice}',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
                       Spacer(),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            ShopCubit.get(context)
+                                .changeFavorites(productId: model.product!.id);
+                            print(model.product!.id);
+                          },
                           icon: CircleAvatar(
+                            backgroundColor: ShopCubit.get(context)
+                                    .favorites[model.product!.id]!
+                                ? defaultColor
+                                : Colors.grey,
                             child: Icon(
                               Icons.favorite_border_outlined,
                               size: 18.0,
+                              color: Colors.white,
                             ),
                           ))
                     ],

@@ -15,10 +15,10 @@ class CategoriesScreen extends StatelessWidget {
           return ListView.separated(
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) => buildCartItem(
-                  ShopCubit.get(context).categoriesModel.data!.data[index]),
+                  ShopCubit.get(context).categoriesModel!.data!.data[index]),
               separatorBuilder: (context, index) => Divider(thickness: .8),
               itemCount:
-                  ShopCubit.get(context).categoriesModel.data!.data.length);
+                  ShopCubit.get(context).categoriesModel!.data!.data.length);
         });
   }
 

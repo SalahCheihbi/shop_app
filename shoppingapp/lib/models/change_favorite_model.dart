@@ -1,5 +1,3 @@
-ChangeFavoriteModel? model;
-
 class ChangeFavoriteModel {
   bool? status;
   String? message;

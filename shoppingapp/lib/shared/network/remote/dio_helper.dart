@@ -22,7 +22,7 @@ class DioHelper {
       'Authorization': token ?? '',
       'Content-Type': 'application/json',
     };
-    return dio.get(
+    return await dio.get(
       url,
       queryParameters: query,
     );
@@ -40,7 +40,7 @@ class DioHelper {
       'Authorization': token ?? '',
       'Content-Type': 'application/json',
     };
-    return dio.post(
+    return await dio.post(
       url,
       queryParameters: query,
       data: data,
